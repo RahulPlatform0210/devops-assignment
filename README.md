@@ -1,57 +1,103 @@
 # DevOps Assignment
 
-## Project Overview
+## Overview
 
-Production-ready DevOps infrastructure using:
+This project demonstrates deployment and production setup of a backend application using containerized infrastructure and CI/CD practices.
+
+The application is built using FastAPI and deployed using Docker Compose with PostgreSQL, Redis, and NGINX reverse proxy.
+
+The objective was to simulate a production-oriented environment covering deployment automation, service orchestration, logging, health monitoring, and infrastructure organization.
+
+---
+
+## Tech Stack
 
 - FastAPI
 - Docker
 - Docker Compose
 - PostgreSQL
 - Redis
-- NGINX Reverse Proxy
-- GitHub Actions CI/CD
+- NGINX
+- GitHub Actions
 
-## Architecture
+---
 
-Client
+## Project Architecture
+
+Client Request
+
 ↓
-NGINX
+
+NGINX Reverse Proxy
+
 ↓
-FastAPI
+
+FastAPI Backend Service
+
 ↓
-PostgreSQL
 
-Redis (Caching Layer)
+PostgreSQL Database
 
-## Setup Instructions
+↓
 
-### Clone Repository
+Redis Cache Layer
+
+Infrastructure managed through Docker Compose
+
+CI/CD implemented using GitHub Actions
+
+---
+
+## Services Used
+
+| Service | Purpose | Port |
+|----------|----------|------|
+| FastAPI | Backend API | 8000 |
+| PostgreSQL | Database | 5432 |
+| Redis | Cache Service | 6379 |
+| NGINX | Reverse Proxy | 80 |
+
+---
+
+## Running the Application
+
+Clone repository:
 
 ```bash
 git clone <repository-url>
+
 cd devops-assignment
 ```
 
-### Start Application
+Start containers:
 
 ```bash
 docker compose up --build -d
 ```
 
-### Verify Containers
+Check running services:
 
 ```bash
-docker ps
+docker compose ps
 ```
 
-### Health Check
+Check logs:
+
+```bash
+docker compose logs
+```
+
+---
+
+## Health Endpoint
+
+Health verification endpoint:
 
 ```bash
 http://localhost/health
 ```
 
-Expected:
+Response:
 
 ```json
 {
@@ -59,38 +105,143 @@ Expected:
 }
 ```
 
-## Services
+---
 
-| Service | Port |
-|----------|------|
-| FastAPI | 8000 |
-| PostgreSQL | 5432 |
-| Redis | 6379 |
-| NGINX | 80 |
+## Docker Setup
 
-## Security Measures
+Application infrastructure includes:
 
-- Environment variable isolation
-- Docker container separation
-- Reverse proxy using NGINX
-- Git ignore for secrets
+- FastAPI container
+- PostgreSQL container
+- Redis container
+- NGINX reverse proxy container
 
-## CI/CD
+Docker Compose handles service orchestration and dependency management.
 
-GitHub Actions pipeline:
+---
 
-- Dependency validation
-- Docker image build
-- Docker compose validation
+## CI/CD Pipeline
+
+GitHub Actions pipeline configured for:
+
+- Dependency installation
+- Docker image validation
+- Docker Compose validation
+
+Pipeline execution triggers:
+
+- Push events
+- Pull Requests
+
+---
+
+## Logging
+
+Application logs can be verified using:
+
+```bash
+docker compose logs
+```
+
+Logs available for:
+
+- FastAPI
+- PostgreSQL
+- Redis
+- NGINX
+
+---
+
+## Security Considerations
+
+Implemented:
+
+- Environment variable usage
+- Secret exclusion using .gitignore
+- Reverse proxy setup using NGINX
+- Container isolation
+
+Production recommendations:
+
+- Firewall configuration
+- SSL certificates
+- Secret management
+- Restricted network exposure
+
+---
+
+## SSL Approach
+
+SSL can be configured using:
+
+- NGINX SSL termination
+- Let's Encrypt certificates
+
+Current setup prepared for SSL integration.
+
+---
 
 ## Backup Strategy
 
 PostgreSQL volume persistence enabled.
 
+Recommended backup approach:
+
+```bash
+pg_dump -U admin devopsdb > backup.sql
+```
+
+Suggested backup frequency:
+
+- Daily database backup
+- Periodic backup validation
+
+---
+
 ## Restart Strategy
 
-Docker Compose manages service recovery.
+Docker Compose service recovery mechanism used.
 
-## SSL Approach
+Container health checks configured to improve reliability.
 
-NGINX ready for SSL certificate integration.
+---
+
+## Deployment Verification
+
+Verify application:
+
+```bash
+http://localhost
+```
+
+Verify health endpoint:
+
+```bash
+http://localhost/health
+```
+
+Verify containers:
+
+```bash
+docker compose ps
+```
+
+---
+
+## Deliverables Completed
+
+- Dockerized FastAPI application
+- Docker Compose setup
+- PostgreSQL integration
+- Redis integration
+- NGINX reverse proxy
+- GitHub Actions CI/CD
+- Environment variable configuration
+- Health monitoring endpoint
+- Logging strategy
+- Deployment documentation
+- Architecture documentation
+
+---
+
+Project developed as part of DevOps Engineer technical assignment.
